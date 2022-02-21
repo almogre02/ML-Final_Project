@@ -1,16 +1,24 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from Adaboost import _Adaboost
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+#constuctors for all clisifiers
+EQ_adaboost = _Adaboost("Worldwide-Earthquake-database.csv")
+#P_adaboost = _Adaboost("WorldPopulation.csv")
+
+print("\n\n~~~~~Q1~~~~~~~")
+print("Adaboost algorithm")
+EQ_adaboost.Q1()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+
+
+
+
+
+
+
+
+
