@@ -25,7 +25,7 @@ class _Adaboost:
         self.df=self.df.replace(to_replace="NaN",value=0)
         self.df = self.df.replace(np.nan, 0)
         self.data=self.df
-        self.data['POPULATION']=np.nan
+        #self.data['POPULATION']=np.nan
 
         #for i in self.data.keys():
          #   a=self.data[i]
@@ -40,7 +40,7 @@ class _Adaboost:
                       "LOCATION_NAME","REGION_CODE",    "DEATHS",	"DEATHS_DESCRIPTION",
                        "MISSING_DESCRIPTION",	"INJURIES",	"INJURIES_DESCRIPTION",	"DAMAGE_DESCRIPTION",
                        "HOUSES_DESTROYED","HOUSES_DESTROYED_DESCRIPTION",	"HOUSES_DAMAGED",
-                        "HOUSES_DAMAGED_DESCRIPTION"]]
+                        "HOUSES_DAMAGED_DESCRIPTION","CONTINENT"]]
         Y1 = self.data["FLAG_TSUNAMI"]
         rounds = 50
         sum = 0
@@ -70,8 +70,8 @@ class _Adaboost:
             y_test_len=len(y_test)
             AdaBoost = AdaBoostClassifier()
             AdaBoost.fit(X_train, y_train)
-            result = AdaBoost.predict(X_test)
-            y_test = np.array(y_test)
+            #result = AdaBoost.predict(X_test)
+            #y_test = np.array(y_test)
             err = AdaBoost.score(X_test, y_test)
             sum += err
 
@@ -83,18 +83,19 @@ class _Adaboost:
         print("The success rate is:", sum / rounds)
 
     def Q3(self):
-        X = self.data["CONTINENT"]
-        Y = self.data[["YEAR", "FOCAL_DEPTH", "EQ_PRIMARY", "INTENSITY", "COUNTRY",
-                       "LOCATION_NAME", "REGION_CODE", "DEATHS", "DEATHS_DESCRIPTION",
-                       "MISSING_DESCRIPTION", "INJURIES", "INJURIES_DESCRIPTION", "DAMAGE_DESCRIPTION",
-                       "HOUSES_DESTROYED", "HOUSES_DESTROYED_DESCRIPTION", "HOUSES_DAMAGED",
-                       "HOUSES_DAMAGED_DESCRIPTION"]]
-        rounds = 50
+        X = self.data[["FLAG_TSUNAMI",  "YEAR",	"FOCAL_DEPTH",	"EQ_PRIMARY",	"INTENSITY", "COUNTRY",
+                      "LOCATION_NAME",  "DEATHS",	"DEATHS_DESCRIPTION",
+                       "MISSING_DESCRIPTION",	"INJURIES",	"INJURIES_DESCRIPTION",	"DAMAGE_DESCRIPTION",
+                       "HOUSES_DESTROYED","HOUSES_DESTROYED_DESCRIPTION",	"HOUSES_DAMAGED",
+                        "HOUSES_DAMAGED_DESCRIPTION"]]
+        Y = self.data["CONTINENT"]
+
+        rounds = 60
         sum = 0
 
         for round in range(rounds):
             # Run adaboost with Dacl
-            X_train, X_test, y_train, y_test = train_test_split(X, Y, train_size=0.50, random_state=None)
+            X_train, X_test, y_train, y_test = train_test_split(X, Y, train_size=0.60, random_state=None)
             AdaBoost = AdaBoostClassifier()
             AdaBoost.fit(X_train, y_train)
             err = AdaBoost.score(X_test, y_test)

@@ -18,6 +18,7 @@ class _NN:
         self.data = self.data.replace(to_replace=['Yes', 'No'], value=[1, 0])
         self.data.COUNTRY = pd.factorize(self.data.COUNTRY)[0]
         self.data.LOCATION_NAME = pd.factorize(self.data.LOCATION_NAME)[0]
+        self.data.CONTINENT = pd.factorize(self.data.CONTINENT)[0]
 
         self.df = pd.DataFrame(self.data)
         self.df['COUNTRY'].fillna(0, inplace=True)
@@ -25,7 +26,7 @@ class _NN:
         self.df = self.df.replace(to_replace="NaN", value=0)
         self.df = self.df.replace(np.nan, 0)
         self.data = self.df
-        self.data['POPULATION'] = np.nan
+        #self.data['POPULATION'] = np.nan
 
     def Q1(self):
 
@@ -40,19 +41,17 @@ class _NN:
 
         for round in range(rounds):
             X_train, X_test, y_train, y_test = train_test_split(X, Y1, train_size=0.50, random_state=None)
-            NN = MLPClassifier(random_state=1, max_iter=300, activation='relu', hidden_layer_sizes=(100, 2),
+            NN = MLPClassifier(random_state=1, max_iter=400, activation='relu', hidden_layer_sizes=(100, 2),
                                early_stopping=True)
             #relu: the rectified linear unit function, returns f(x) = max(0, x)
             NN.fit(X_train.values, y_train.values)
             success = NN.score(X_test.values, y_test.values)
             sum += success
 
-        print("empirial error of workday alcohol consumption : ", sum / rounds)
+        print("", sum / rounds)
 
     def Q2(self):
 
-        # X = self.data[["DEATHS", "DEATHS_DESCRIPTION", "MISSING_DESCRIPTION", "INJURIES", "INJURIES_DESCRIPTION"]]
-        # Y = self.data["INTENSITY"]
         X = self.data[["INTENSITY"]]
         Y = self.data["DEATHS"]
         rounds = 50
@@ -67,4 +66,27 @@ class _NN:
             success = NN.score(X_test.values, y_test.values)
             sum += success
 
-        print("empirial error of workday alcohol consumption : ", sum / rounds)
+        print("", sum / rounds)
+
+
+    def Q3(self):
+
+        X = self.data[["FLAG_TSUNAMI", "YEAR", "FOCAL_DEPTH", "EQ_PRIMARY", "INTENSITY", "COUNTRY",
+                       "LOCATION_NAME", "DEATHS", "DEATHS_DESCRIPTION",
+                       "MISSING_DESCRIPTION", "INJURIES", "INJURIES_DESCRIPTION", "DAMAGE_DESCRIPTION",
+                       "HOUSES_DESTROYED", "HOUSES_DESTROYED_DESCRIPTION", "HOUSES_DAMAGED",
+                       "HOUSES_DAMAGED_DESCRIPTION"]]
+        Y = self.data["CONTINENT"]
+        rounds = 60
+        sum = 0
+
+        for round in range(rounds):
+            X_train, X_test, y_train, y_test = train_test_split(X, Y, train_size=0.50, random_state=None)
+            NN = MLPClassifier(random_state=2, max_iter=500, activation='logistic', hidden_layer_sizes=(100, 2),
+                               early_stopping=True)
+            # relu: the rectified linear unit function, returns f(x) = max(0, x)
+            NN.fit(X_train.values, y_train.values)
+            success = NN.score(X_test.values, y_test.values)
+            sum += success
+
+        print("", sum / rounds)

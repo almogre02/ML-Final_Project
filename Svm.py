@@ -21,6 +21,7 @@ class _Svm:
         self.data = self.data.replace(to_replace=['Yes', 'No'], value=[1, 0])
         self.data.COUNTRY = pd.factorize(self.data.COUNTRY)[0]
         self.data.LOCATION_NAME = pd.factorize(self.data.LOCATION_NAME)[0]
+        self.data.CONTINENT = pd.factorize(self.data.CONTINENT)[0]
 
 
     #DataFrame.fillna()
@@ -46,7 +47,7 @@ class _Svm:
                       "LOCATION_NAME","REGION_CODE",    "DEATHS",	"DEATHS_DESCRIPTION",
                        "MISSING_DESCRIPTION",	"INJURIES",	"INJURIES_DESCRIPTION",	"DAMAGE_DESCRIPTION",
                        "HOUSES_DESTROYED","HOUSES_DESTROYED_DESCRIPTION",	"HOUSES_DAMAGED",
-                        "HOUSES_DAMAGED_DESCRIPTION"]]
+                        "HOUSES_DAMAGED_DESCRIPTION","CONTINENT"]]
         Y = self.data["FLAG_TSUNAMI"]
         rounds = 50
         sum = 0
@@ -70,6 +71,29 @@ class _Svm:
         Y = self.data["DEATHS"]
         rounds = 50
         sum = 0
+
+        for round in range(rounds):
+            # Run svm to predict workday alcohol consumption
+            X_train, X_test, y_train, y_test = train_test_split(X, Y, train_size=0.50, random_state=None)
+            clf = svm.SVC()
+            clf.fit(X_train, y_train)
+            Accuracy = clf.score(X_test, y_test)
+            sum += Accuracy
+
+        print("The success rate is:", sum / rounds)
+
+
+    def Q3(self):
+        X = self.data[["FLAG_TSUNAMI",  "YEAR",	"FOCAL_DEPTH",	"EQ_PRIMARY",	"INTENSITY", "COUNTRY",
+                      "LOCATION_NAME",  "DEATHS",	"DEATHS_DESCRIPTION",
+                       "MISSING_DESCRIPTION",	"INJURIES",	"INJURIES_DESCRIPTION",	"DAMAGE_DESCRIPTION",
+                       "HOUSES_DESTROYED","HOUSES_DESTROYED_DESCRIPTION",	"HOUSES_DAMAGED",
+                        "HOUSES_DAMAGED_DESCRIPTION"]]
+        Y = self.data["CONTINENT"]
+
+        rounds = 60
+        sum = 0
+
 
         for round in range(rounds):
             # Run svm to predict workday alcohol consumption
