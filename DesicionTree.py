@@ -48,7 +48,7 @@ class _Decision_tree:
         clf = tree.DecisionTreeClassifier(max_depth=4)
         clf.fit(X_train, y_train)
         prediction=clf.predict(X_test)
-        print(accuracy_score(y_test,prediction))
+        print("Accuracy of the possibility for Tsunami when Earthquake is occur: ",accuracy_score(y_test,prediction))
 
     def Q2(self):
         X = self.data[["INTENSITY"]]
@@ -58,7 +58,7 @@ class _Decision_tree:
         clf = tree.DecisionTreeClassifier(max_depth=4)
         clf.fit(X_train, y_train)
         prediction = clf.predict(X_test)
-        print(accuracy_score(y_test, prediction))
+        print("",accuracy_score(y_test, prediction))
 
 
     def Q3(self):

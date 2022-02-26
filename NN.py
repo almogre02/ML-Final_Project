@@ -48,7 +48,7 @@ class _NN:
             success = NN.score(X_test.values, y_test.values)
             sum += success
 
-        print("", sum / rounds)
+        print("Accuracy of the possibility for Tsunami when Earthquake is occur: ", sum / rounds)
 
     def Q2(self):
 

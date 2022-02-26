@@ -52,7 +52,21 @@ EQ_NN = _NN("Worldwide-Earthquake-Continent-database.csv")
 # EQ_LR.Q3()
 
 
+print("\n\n Question 4:")
+EQ_adaboost = _Adaboost("Population_EQ.csv")
+EQ_svm = _Svm("Population_EQ.csv")
+EQ_Decision_tree = _Decision_tree("Population_EQ.csv")
+EQ_NN = _NN("Population_EQ.csv")
 
+
+#print("__Adaboost__")
+# EQ_adaboost.Q4()
+# print("__SVM__")
+# EQ_svm.Q4()
+#print("__DecisionTree__")
+#EQ_Decision_tree.Q4()
+# print("__NN__")
+# EQ_NN.Q4()
 
 
 
